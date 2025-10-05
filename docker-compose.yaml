@@ -1,0 +1,29 @@
+services:
+  api:
+    container_name: transactions_aggregator_api
+    restart: unless-stopped
+    image: capitec-transactions-aggregator-api:1.0.0
+    depends_on: [database]
+    environment:
+      - TRANSACTION_AGGREGATOR_DATABASE_URL=${TRANSACTION_AGGREGATOR_DATABASE_URL}
+      - TRANSACTION_AGGREGATOR_DB_USERNAME=${TRANSACTION_AGGREGATOR_DB_USERNAME}
+      - TRANSACTION_AGGREGATOR_DB_PASSWORD=${TRANSACTION_AGGREGATOR_DB_PASSWORD}
+    ports:
+      - "8080:8080"
+    volumes:
+      - /data/logs:/data/logs
+
+  database:
+    container_name: transactions_aggregator_database
+    image: capitec-transaction-aggregator:1.0.0
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=capitec_dev
+      - POSTGRES_DB=transaction_aggregator
+    volumes:
+      - database_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+volumes:
+  database_data:

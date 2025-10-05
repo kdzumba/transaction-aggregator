@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: ${TRANSACTION_AGGREGATOR_DATABASE_URL}
+    username: ${TRANSACTION_AGGREGATOR_DB_USERNAME}
+    password: ${TRANSACTION_AGGREGATOR_DB_PASSWORD}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      jakarta:
+        persistence:
+          schema-generation:
+            scripts:
+              action: create
+  flyway:
+    locations: filesystem:${FLYWAY_MIGRATIONS_PATH}
+    baseline-on-migrate: true
+    placeholder-replacement: false
