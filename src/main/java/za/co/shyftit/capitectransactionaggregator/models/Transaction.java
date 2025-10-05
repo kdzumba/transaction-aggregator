@@ -20,6 +20,10 @@ public class Transaction {
     @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
     private TransactionType type;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
+    private TransactionCategory category;
+
     @Column(name = "external_id", length = 200)
     private String externalId;
 
