@@ -2,7 +2,7 @@ services:
   api:
     container_name: transactions_aggregator_api
     restart: unless-stopped
-    image: transactions_aggregator_api:1.0.3
+    image: transactions_aggregator_api:1.0.0
     depends_on: [database]
     environment:
       - TRANSACTION_AGGREGATOR_DATABASE_URL=${TRANSACTION_AGGREGATOR_DATABASE_URL}
