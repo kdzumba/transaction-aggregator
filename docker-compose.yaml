@@ -2,12 +2,15 @@ services:
   api:
     container_name: transactions_aggregator_api
     restart: unless-stopped
-    image: transactions_aggregator_api:1.0.0
+    image: transactions_aggregator_api:1.0.3
     depends_on: [database]
     environment:
       - TRANSACTION_AGGREGATOR_DATABASE_URL=${TRANSACTION_AGGREGATOR_DATABASE_URL}
       - TRANSACTION_AGGREGATOR_DB_USERNAME=${TRANSACTION_AGGREGATOR_DB_USERNAME}
       - TRANSACTION_AGGREGATOR_DB_PASSWORD=${TRANSACTION_AGGREGATOR_DB_PASSWORD}
+      - TRANSACTIONS_AGGREGATOR_SECRET_KEY=${TRANSACTIONS_AGGREGATOR_SECRET_KEY}
+      - JWT_ACCESS_ACTIVE_DURATION=${JWT_ACCESS_ACTIVE_DURATION}
+      - FLYWAY_MIGRATIONS_PATH=${FLYWAY_MIGRATIONS_PATH}
     ports:
       - "8080:8080"
     volumes:
