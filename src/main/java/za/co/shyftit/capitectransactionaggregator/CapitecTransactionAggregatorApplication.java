@@ -16,5 +16,4 @@ public class CapitecTransactionAggregatorApplication extends SpringBootServletIn
 	public static void main(String[] args) {
 		SpringApplication.run(CapitecTransactionAggregatorApplication.class, args);
 	}
-
 }

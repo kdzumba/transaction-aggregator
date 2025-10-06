@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import za.co.shyftit.capitectransactionaggregator.dtos.CreateUserDTO;
-import za.co.shyftit.capitectransactionaggregator.models.User;
+import za.co.shyftit.capitectransactionaggregator.dtos.EntityPostDTO;
+import za.co.shyftit.capitectransactionaggregator.dtos.ResponseObject;
 import za.co.shyftit.capitectransactionaggregator.services.CustomUserDetailsService;
 
 @RestController
@@ -17,8 +18,8 @@ public class UsersController {
     private final CustomUserDetailsService userDetailsService;
 
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody CreateUserDTO request) {
-        User user = userDetailsService.createUser(request.username(), request.password());
-        return ResponseEntity.ok(user);
+    public ResponseEntity<ResponseObject<EntityPostDTO>> createUser(@RequestBody CreateUserDTO request) {
+        var result = userDetailsService.createUser(request.username(), request.password());
+        return ResponseEntity.status(result.getHttpStatus()).body(result);
     }
 }

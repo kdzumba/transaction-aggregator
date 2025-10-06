@@ -2,14 +2,17 @@ package za.co.shyftit.capitectransactionaggregator.controllers;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import za.co.shyftit.capitectransactionaggregator.dtos.ResponseObject;
 import za.co.shyftit.capitectransactionaggregator.dtos.TransactionDTO;
 import za.co.shyftit.capitectransactionaggregator.services.TransactionsService;
 
 import java.time.Instant;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -21,18 +24,20 @@ public class TransactionsController {
     }
 
     @GetMapping("/by-date-range")
-    public Page<TransactionDTO> getTransactionsByDateRange(
+    public ResponseEntity<ResponseObject<List<TransactionDTO>>> getTransactionsByDateRange(
             @RequestParam Instant startDate,
             @RequestParam Instant endDate,
             Pageable pageable) {
-        return transactionsService.getTransactionsByDateRange(startDate, endDate, pageable);
+        var result = transactionsService.getTransactionsByDateRange(startDate, endDate, pageable);
+        return ResponseEntity.status(result.getHttpStatus()).body(result);
     }
 
     @GetMapping("/by-category")
-    public Page<TransactionDTO> getTransactionsByCategory(
+    public ResponseEntity<ResponseObject<List<TransactionDTO>>> getTransactionsByCategory(
             @RequestParam String category,
             Pageable pageable
     ) {
-        return transactionsService.getTransactionsByCategory(category, pageable);
+        var result = transactionsService.getTransactionsByCategory(category, pageable);
+        return ResponseEntity.status(result.getHttpStatus()).body(result);
     }
 }
