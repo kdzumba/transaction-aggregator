@@ -28,7 +28,7 @@ docker build -t capitec-transaction-aggregator-db:1.0.0 .
 
 ```bash
 cd [project_root]
-docker build -t transactions_aggregator_api:1.0.2 .
+docker build -t transactions_aggregator_api:1.0.0 .
 ```
 
 ### 2. Start Services with Docker Compose
@@ -44,8 +44,8 @@ This will start:
 
 ### 3. Initial Setup
 
-1. Create a new user by sending a POST request to the `/api/users/register` endpoint with `username` and `password`.
-2. Log in via `/api/users/login` to receive an access token.
+1. Create a new user by sending a POST request to the `/users/create` endpoint with `username` and `password`.
+2. Log in via `/login` to receive an access token.
 
 ### 4. Using the API
 
