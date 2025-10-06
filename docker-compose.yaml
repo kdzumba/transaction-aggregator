@@ -16,7 +16,7 @@ services:
   database:
     container_name: transactions_aggregator_database
     image: capitec-transaction-aggregator:1.0.0
-    restart: unless-stopped
+#    restart: unless-stopped
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=capitec_dev

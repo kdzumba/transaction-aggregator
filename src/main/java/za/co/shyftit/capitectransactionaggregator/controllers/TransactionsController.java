@@ -1,12 +1,9 @@
 package za.co.shyftit.capitectransactionaggregator.controllers;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import za.co.shyftit.capitectransactionaggregator.dtos.EntityPostDTO;
 import za.co.shyftit.capitectransactionaggregator.dtos.ResponseObject;
 import za.co.shyftit.capitectransactionaggregator.dtos.TransactionDTO;
 import za.co.shyftit.capitectransactionaggregator.services.TransactionsService;
@@ -38,6 +35,12 @@ public class TransactionsController {
             Pageable pageable
     ) {
         var result = transactionsService.getTransactionsByCategory(category, pageable);
+        return ResponseEntity.status(result.getHttpStatus()).body(result);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<ResponseObject<EntityPostDTO>> createTransaction(@RequestBody TransactionDTO dto) {
+        var result = transactionsService.createTransaction(dto);
         return ResponseEntity.status(result.getHttpStatus()).body(result);
     }
 }
